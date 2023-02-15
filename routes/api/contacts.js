@@ -1,25 +1,21 @@
-const express = require('express')
+const express = require('express');
 
-const router = express.Router()
+const {validation, ctrlWrapper} = require("../../middleware");
+const {contacts: ctrl} = require("../../controllers");
+const {productSchema} = require("../../schema");
 
-router.get('/', async (req, res, next) => {
-  res.json({ message: 'hw message' })
-})
+const validateMiddleware = validation(productSchema);
 
-router.get('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+const router = express.Router();
 
-router.post('/', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get('/', ctrlWrapper(ctrl.getAllContacts));
 
-router.delete('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.get('/:contactId', ctrlWrapper(ctrl.getById));
 
-router.put('/:contactId', async (req, res, next) => {
-  res.json({ message: 'template message' })
-})
+router.post('/', validateMiddleware, ctrlWrapper(ctrl.addContacts));
+
+router.delete('/:contactId', ctrlWrapper(ctrl.deleteContacts));
+
+router.put('/:contactId', validateMiddleware, ctrlWrapper(ctrl.updateContacts))
 
 module.exports = router
