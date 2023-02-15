@@ -1,9 +1,9 @@
 const Joi = require("joi");
 
-const productSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.string().required(),
+const contactSchema = Joi.object({
+  name: Joi.string().optional(),
+  email: Joi.string().optional(),
+  phone: Joi.string().optional(),
   })
 
-  module.exports = productSchema
+  module.exports = contactSchema;
