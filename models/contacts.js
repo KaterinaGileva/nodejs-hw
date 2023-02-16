@@ -52,9 +52,12 @@ const updateContact = async (contactId, body) => {
     if (contactsIndex === -1) {
       return null;
     }
-    allContacts[contactsIndex] = { id: contactId, ...body };
+    contactToUpdate = allContacts[contactsIndex];
+    updatedContact = {...contactToUpdate,...body};
+    allContacts.splice(contactsIndex, 1, updatedContact)
+    
     await fs.writeFile(contactsPath, JSON.stringify(allContacts));
-    return allContacts[contactsIndex];
+    return updatedContact;
   } catch (err) {
     console.error(err);
   }
