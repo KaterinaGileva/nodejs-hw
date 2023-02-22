@@ -4,20 +4,25 @@ const {Schema, model} = require ("mongoose");
 //const {handleSchemaValidationError} = require("../helpers");
 
 const contactSchema = new Schema({
-        name: {
-          type: String,
-          required: [true, 'Set name for contact'],
-        },
-        email: {
-          type: String,
-        },
-        phone: {
-          type: String,
-        },
-        favorite: {
-          type: Boolean,
-          default: false,
-        },
+  name: String,
+  email: String,
+  phone: String,
+  favorite: Boolean
+    //     type: String
+      //  name: {
+    //      type: String,
+     //     required: [true, 'Set name for contact'],
+     //   },
+     //   email: {
+      //    type: String,
+     //   },
+     //   phone: {
+     //     type: String,
+    //    },
+    //    favorite: {
+   //       type: Boolean,
+    //      default: false,
+    //    },
 },
 //{ versionKey: false, timestamps: true }
 );
@@ -43,7 +48,5 @@ const contactSchema = new Schema({
 
 const Contact = model("contact", contactSchema);
 
-module.exports = {
-  Contact,
+module.exports = Contact;
   //schemas
-}
