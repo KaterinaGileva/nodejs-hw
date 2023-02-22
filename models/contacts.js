@@ -1,4 +1,4 @@
- const fs = require('fs/promises')
+/* const fs = require('fs/promises')
  const path = require("path");
  const { v4: idContacts } = require("uuid");
  const contactsPath = path.join(__dirname, "contacts.json");
@@ -85,4 +85,4 @@ module.exports = {
   removeContact,
   addContact,
   updateContact,
-}
+}*/

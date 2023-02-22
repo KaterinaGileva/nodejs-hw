@@ -1,11 +1,11 @@
 const {Сontact} = require("../../models/contact");
 const {NotFound} = require("http-errors");
 
-const updateContacts = async (req, res) => {
+const updateFavorite = async (req, res) => {
 const {contactId} = req.params;
 const result = await Сontact.findByIdAndUpdate(contactId, req.body, {new: true});
     if (!result){
-        throw new NotFound (`Product with id=${contactId} not found`);
+      throw new NotFound (`Product with id=${contactId} not found`);
     }  
     res.json({
     status: 'sucsess',
@@ -15,4 +15,4 @@ const result = await Сontact.findByIdAndUpdate(contactId, req.body, {new: true}
           }
       })
     }
-module.exports = updateContacts;
+module.exports = updateFavorite;
