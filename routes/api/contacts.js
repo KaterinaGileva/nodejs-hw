@@ -11,7 +11,7 @@ const router = express.Router();
 
 //router.get('/:contactId', isValidId, ctrlWrapper(ctrl.getById));
 
-router.post('/', validation(schemas.addSchema), ctrlWrapper(ctrl.addContacts));
+router.post('/', /*validation(schemas.addSchema),*/ ctrlWrapper(ctrl.addContacts));
 
 //router.put('/:contactId', isValidId, validation(schemas.addSchema), ctrlWrapper(ctrl.updateContacts));
 

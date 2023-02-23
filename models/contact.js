@@ -4,7 +4,12 @@ const Joi = require("joi");
 //const {handleSchemaValidationError} = require("../helpers");
 
 const contactSchema = new Schema({
-        name: {
+  name: String,
+  email: String,
+  phone: String,
+  favorite: Boolean
+
+      /*  name: {
          type: String,
           required: [true, 'Set name for contact'],
         },
@@ -20,10 +25,10 @@ const contactSchema = new Schema({
          type: Boolean,
           default: false,
         },
-}, { versionKey: false, timestamps: true }
+}, { versionKey: false, timestamps: true*/ }
 );
 
-//contactSchema.post("save", handleSchemaValidationError);
+contactSchema.post("save", handleSchemaValidationError);
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
