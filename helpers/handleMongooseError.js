@@ -3,15 +3,15 @@
 
 //const handleSchemaValidationError = (error, data, next) => {
     
- //   error.status = isConflict(error) ? 409 : 400;
- //   next();
+  //  error.status = isConflict(error) ? 409 : 400;
+ //  next();
 //}
 
  // module.exports = handleSchemaValidationError;
 
- const handleSchemaValidationError = (error, data, next) => {
+ const handleMongooseError = (error, data, next) => {
   error.status = 400;
   next()
 };
 
-module.exports = handleSchemaValidationError;
+module.exports = handleMongooseError;
