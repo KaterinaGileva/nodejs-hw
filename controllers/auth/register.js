@@ -11,13 +11,14 @@ throw new Conflict(`User with ${email} already exist`)
 
 const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 const result = await User.create({name, email, password: hashPassword});
+
 res.status(201).json({
     status: "successs",
     code: 201,
     data: {
         user: {
-            email,
-            name
+        email,
+        name
         }
     }
 })
