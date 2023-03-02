@@ -23,7 +23,7 @@ const payload = {
     id: user._id
 };
 const token = jwt.sign(payload, SECRET_KEY, {expiresIn: '1h'});
-
+await User.findByIdAndUpdate(user._id, {token});
 res.json({
     status: "successs",
     code: 200,
