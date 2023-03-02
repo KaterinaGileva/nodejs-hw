@@ -8,7 +8,7 @@ const {schemas} = require("../../models/contact");
 
 const router = express.Router();
 
-router.get("/", /*auth,*/ctrl.getAll);
+router.get("/", auth, ctrl.getAll);
 
 router.get("/:id", isValidId, ctrl.getById);
 
