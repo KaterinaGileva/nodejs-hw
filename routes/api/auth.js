@@ -8,9 +8,9 @@ const {schemas} = require("../../models/user");
 
 const router = express.Router();
 
-router.post("/register", validateBody(schemas.registerSchema/*joiRegisterSchema*/), ctrl.register);
+router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 //router.post("/signup")
-router.post("/login", validateBody(schemas.loginSchema/*joiLoginSchema*/), ctrl.login);
+router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 //router.post("/signin")
 router.get("/current", auth, ctrl.getCurrent);
 
