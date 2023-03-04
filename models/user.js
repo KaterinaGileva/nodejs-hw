@@ -3,7 +3,7 @@ const Joi = require("joi");
 const bcrypt = require('bcrypt');
 const {handleMongooseError} = require("../helpers");
 
-const userSchema = Schema({
+const userSchema = new Schema({
         password: {
           type: String,
           required: [true, "Set password for user"],
