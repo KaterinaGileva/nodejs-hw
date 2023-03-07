@@ -3,7 +3,7 @@ const express = require('express');
 const ctrl = require("../../controllers/auth");
 //const {subscriptionUpdate} = require("../../controllers/subscriptionUpdate");
 
-const {auth, validateBody} = require("../../middlewares");
+const {auth, upload, validateBody} = require("../../middlewares");
 const {schemas} = require("../../models/user");
 
 //const {validateSubscriptionUpdate} = require("../middlewares/validateSubscriptionUpdate");
@@ -19,6 +19,8 @@ router.get("/current", auth, ctrl.getCurrent);
 router.get("/logout", auth, ctrl.logout);
 //router.get("/signout")
 
-//router.patch( "/", auth, validateSubscriptionUpdate, ctrl.subscriptionUpdate);
-  
+//router.patch( "/", auth, validateSubscriptionUpdate, ctrl.subscripupdateAvatartionUpdate);
+router.patch("/avatars", auth, upload.single("avatar"), ctrl.updateAvatar);
+
+
 module.exports = router;
