@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs/promises");
+const Jimp = require("jimp");
 
 const {User} = require("../models/user");
 const gravatar = require("gravatar");
@@ -15,9 +16,10 @@ const register = async(req, res)=> {
     if(user){
         throw HttpError(409, "Email already in use");
     }
-    const avatarURL = gravatar.url(email/*, { s: "200", r: "pg", d: "mm" }*/);
-    const hashPassword = await bcrypt.hash(password, 10);
 
+    const hashPassword = await bcrypt.hash(password, 10);
+    const avatarURL = gravatar.url(email/*, { s: "200", r: "pg", d: "mm" }*/);
+    
     const newUser = await User.create({
         ...req.body,
         password: hashPassword,
@@ -28,7 +30,7 @@ const register = async(req, res)=> {
     res.status(201).json({
         email: newUser.email,
         subscription: newUser.subscription,
-        avatarURL: newUser.avatarURL
+        //avatarURL: newUser.avatarURL
     })
 }
 
@@ -70,19 +72,20 @@ const getCurrent = async(req, res)=> {
 const avatarsDir = path.join(__dirname, "../","public", "avatars");
 
 const updateAvatar = async(req, res)=> {
+    const {_id} = req.user;
     const {path: tempUpload, originalname} = req.file;
-    const {_id: id} = req.user;
-    const imageName =  `${id}_${originalname}`;
-    try {
-        const resultUpload = path.join(avatarsDir, imageName);
-        await fs.rename(tempUpload, resultUpload);
-        const avatarURL = path.join("public", "avatars", originalname);
-        await User.findOneAndUpdate(req.user._id, {avatarURL})
-        res.json({avatarURL});
-    } catch (error){
-      await fs.unlink(tempUpload);
-      throw error;
-    }
+    const filename = `${_id}_${originalname}`;
+    const resultUpload = path.join(avatarsDir, filename);
+    await fs.rename(tempUpload, resultUpload);
+    const resizeImage = await Jimp.read(resultUpload);
+    resizeImage.resize(250, 250).write(resultUpload);
+
+    const avatarURL = path.join("avatars", filename);
+    await User.findOneAndUpdate(_id, {avatarURL});
+
+    res.json({
+        avatarURL,
+    })
 };
 
 const logout = async (req, res) => {
